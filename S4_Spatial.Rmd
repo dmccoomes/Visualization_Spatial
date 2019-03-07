@@ -14,6 +14,40 @@ _____
 _____
 
 
+```{r install_packages, eval=FALSE}
+
+install.packages("utilsIPEA")
+install.packages("rgdal")
+install.packages("raster")
+install.packages("tmaptools")
+install.packages("mapshaper")
+install.packages("tmap")
+install.packages("leaflet")
+install.packages("RColorBrewer")
+install.packages("classint")
+install.packages("dplyr")
+
+
+```
+
+
+```{r load_libraries, eval=FALSE}
+
+library(utils)
+library(rgdal)
+library(raster)
+library(tmaptools)
+library(mapshaper)
+library(tmap)
+library(leaflet)
+library(RColorBrewer)
+library(classint)
+library(dplyr)
+
+```
+
+
+
 Let's work with the data on contributions to Candidates and Political Committees in Washington State. 
 
 The WA [portal](https://data.wa.gov/) for OpenData has this data on this [website](https://data.wa.gov/Politics/Contributions-to-Candidates-and-Political-Committe/kv7h-kjye).
@@ -142,6 +176,7 @@ plot(contriWA_geo,
 You may want to alter the order of the layers, and using just the whole state without internal divisions:
 
 ```{r, eval=FALSE,warning=FALSE}
+#install.packages("rmapshaper")   #DMC adding
 library(rmapshaper)
 # This will make just a border of the state
 baseMap <- ms_dissolve(wazipMap)
@@ -218,6 +253,7 @@ head(WA_zip_contri)
 
 ``````{r, eval=FALSE}
 names(WA_zip_contri)[2]='AVE_Amount'
+
 ```
 
 This data frame has the average of contributions for every zip code since the election year 2009, including the elections up to 2023.
@@ -267,6 +303,10 @@ library(classInt)
 2. Define the variable to plot:
 ```{r, eval=FALSE}
 varToPLot=layerContrib$AVE_Amount
+
+#DMC adding
+#varToPlot=as.numeric(wazipMap$varToPlot)
+
 ```
 
 
@@ -274,6 +314,9 @@ varToPLot=layerContrib$AVE_Amount
 
 ```{r, eval=FALSE}
 numberOfClasses = 5
+
+#str(varToPlot)
+
 
 colorForScale='YlGnBu'
 
